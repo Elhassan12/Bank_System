@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="bankDBModelStoreContainer" CdmEntityContainer="bankDBEntities3">
+    <EntitySetMapping Name="CustomerDBs">
+      <EntityTypeMapping TypeName="bankDBModel.CustomerDB">
+        <MappingFragment StoreEntitySet="CustomerDB">
+          <ScalarProperty Name="Brance_Number" ColumnName="Brance Number" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankDBs">
+      <EntityTypeMapping TypeName="bankDBModel.BankDB">
+        <MappingFragment StoreEntitySet="BankDB">
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BranchDBs">
+      <EntityTypeMapping TypeName="bankDBModel.BranchDB">
+        <MappingFragment StoreEntitySet="BranchDB">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Brance_Number" ColumnName="Brance Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

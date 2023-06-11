@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bankDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Account Number" />
+    </Key>
+    <Property Name="Account Number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SSN customer" Type="bigint" />
+    <Property Name="Balance" Type="bigint" />
+    <Property Name="Type" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="AdminDB">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BankDB">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BranchDB">
+    <Key>
+      <PropertyRef Name="Brance Number" />
+    </Key>
+    <Property Name="Brance Number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Code" Type="int" />
+  </EntityType>
+  <EntityType Name="CustomerDB">
+    <Key>
+      <PropertyRef Name="SSN" />
+    </Key>
+    <Property Name="SSN" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Brance Number" Type="int" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="SSN" />
+    </Key>
+    <Property Name="SSN" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Position" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Branch Number" Type="int" />
+  </EntityType>
+  <EntityType Name="LoanDB">
+    <Key>
+      <PropertyRef Name="Loan Number" />
+    </Key>
+    <Property Name="Loan Number" Type="int" Nullable="false" />
+    <Property Name="Branch Number" Type="int" />
+    <Property Name="Account Number" Type="int" />
+    <Property Name="Loan Amount" Type="bigint" />
+    <Property Name="Loan Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="SSN Employee" Type="int" />
+    <Property Name="Loan Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_ACC">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="LoanDB" Type="Self.LoanDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account Number" />
+      </Principal>
+      <Dependent Role="LoanDB">
+        <PropertyRef Name="Account Number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BankDB">
+    <End Role="BankDB" Type="Self.BankDB" Multiplicity="0..1" />
+    <End Role="BranchDB" Type="Self.BranchDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BankDB">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="BranchDB">
+        <PropertyRef Name="Code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BR">
+    <End Role="BranchDB" Type="Self.BranchDB" Multiplicity="0..1" />
+    <End Role="LoanDB" Type="Self.LoanDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BranchDB">
+        <PropertyRef Name="Brance Number" />
+      </Principal>
+      <Dependent Role="LoanDB">
+        <PropertyRef Name="Branch Number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BranchDB">
+    <End Role="BranchDB" Type="Self.BranchDB" Multiplicity="0..1" />
+    <End Role="CustomerDB" Type="Self.CustomerDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BranchDB">
+        <PropertyRef Name="Brance Number" />
+      </Principal>
+      <Dependent Role="CustomerDB">
+        <PropertyRef Name="Brance Number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_customer">
+    <End Role="CustomerDB" Type="Self.CustomerDB" Multiplicity="0..1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerDB">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="SSN customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Empl">
+    <End Role="BranchDB" Type="Self.BranchDB" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BranchDB">
+        <PropertyRef Name="Brance Number" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Branch Number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_loan">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="LoanDB" Type="Self.LoanDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="SSN" />
+      </Principal>
+      <Dependent Role="LoanDB">
+        <PropertyRef Name="SSN Employee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bankDBModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdminDB" EntityType="Self.AdminDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BankDB" EntityType="Self.BankDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BranchDB" EntityType="Self.BranchDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerDB" EntityType="Self.CustomerDB" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoanDB" EntityType="Self.LoanDB" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ACC" Association="Self.FK_ACC">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="LoanDB" EntitySet="LoanDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BankDB" Association="Self.FK_BankDB">
+      <End Role="BankDB" EntitySet="BankDB" />
+      <End Role="BranchDB" EntitySet="BranchDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BR" Association="Self.FK_BR">
+      <End Role="BranchDB" EntitySet="BranchDB" />
+      <End Role="LoanDB" EntitySet="LoanDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BranchDB" Association="Self.FK_BranchDB">
+      <End Role="BranchDB" EntitySet="BranchDB" />
+      <End Role="CustomerDB" EntitySet="CustomerDB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_customer" Association="Self.FK_customer">
+      <End Role="CustomerDB" EntitySet="CustomerDB" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Empl" Association="Self.FK_Empl">
+      <End Role="BranchDB" EntitySet="BranchDB" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_loan" Association="Self.FK_loan">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="LoanDB" EntitySet="LoanDB" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

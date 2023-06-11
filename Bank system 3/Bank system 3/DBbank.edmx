@@ -1,0 +1,546 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBbankModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TB_ACCOUNT">
+          <Key>
+            <PropertyRef Name="ACCOUNT_NUMBER" />
+          </Key>
+          <Property Name="ACCOUNT_NUMBER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="BALANCE" Type="int" />
+          <Property Name="TYPE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TB_ADMIN">
+          <Key>
+            <PropertyRef Name="PASS" />
+          </Key>
+          <Property Name="USERNAME" Type="char" MaxLength="10" />
+          <Property Name="PASS" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_BANK">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TB_BRANCH">
+          <Key>
+            <PropertyRef Name="BRANCH_NUMBER" />
+          </Key>
+          <Property Name="BRANCH_NUMBER" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODE" Type="int" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TB_CUSTOMER">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="BRANCH_NUMBER" Type="int" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="50" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="PHONE" Type="numeric" Precision="11" Scale="0" />
+          <Property Name="SSN_EMPLOYEE" Type="int" />
+        </EntityType>
+        <EntityType Name="TB_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="SSN_EMPLOYEE" />
+          </Key>
+          <Property Name="SSN_EMPLOYEE" Type="int" Nullable="false" />
+          <Property Name="BRANCH_NUMBER" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="50" />
+          <Property Name="POSTION_" Type="varchar" MaxLength="50" />
+          <Property Name="PHONE" Type="numeric" Precision="11" Scale="0" />
+        </EntityType>
+        <EntityType Name="TB_LOAN">
+          <Key>
+            <PropertyRef Name="LOAN_NUMBER" />
+          </Key>
+          <Property Name="LOAN_NUMBER" Type="int" Nullable="false" />
+          <Property Name="SSN_EMPLOYEE" Type="int" />
+          <Property Name="BRANCH_NUMBER" Type="int" />
+          <Property Name="ACCOUNT_NUMBER" Type="int" />
+          <Property Name="LOAN_AMOUNT" Type="int" />
+          <Property Name="LOAN_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="LOAN_STATUS" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TB_ACCOU_OWNS_TB_CUSTO">
+          <End Role="TB_CUSTOMER" Type="Self.TB_CUSTOMER" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_ACCOUNT" Type="Self.TB_ACCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CUSTOMER">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="TB_ACCOUNT">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_BRANC_HAS_TB_BANK">
+          <End Role="TB_BANK" Type="Self.TB_BANK" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BANK">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="TB_BRANCH">
+              <PropertyRef Name="CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_CUSTO_DEAL_TB_BRANC">
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_CUSTOMER" Type="Self.TB_CUSTOMER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BRANCH">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_CUSTOMER">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_EMP_ENTER_TB_CUST">
+          <End Role="TB_EMPLOYEE" Type="Self.TB_EMPLOYEE" Multiplicity="0..1" />
+          <End Role="TB_CUSTOMER" Type="Self.TB_CUSTOMER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_EMPLOYEE">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Principal>
+            <Dependent Role="TB_CUSTOMER">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_EMPLO_WORKS_FOR_TB_BRANC">
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_EMPLOYEE" Type="Self.TB_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BRANCH">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_EMPLOYEE">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_LOAN_AVAILED_B_TB_ACCOU">
+          <End Role="TB_ACCOUNT" Type="Self.TB_ACCOUNT" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_LOAN" Type="Self.TB_LOAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_ACCOUNT">
+              <PropertyRef Name="ACCOUNT_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_LOAN">
+              <PropertyRef Name="ACCOUNT_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_LOAN_MANAGE_TB_EMPLO">
+          <End Role="TB_EMPLOYEE" Type="Self.TB_EMPLOYEE" Multiplicity="0..1" />
+          <End Role="TB_LOAN" Type="Self.TB_LOAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_EMPLOYEE">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Principal>
+            <Dependent Role="TB_LOAN">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_LOAN_OFFER_TB_BRANC">
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="0..1" />
+          <End Role="TB_LOAN" Type="Self.TB_LOAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BRANCH">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_LOAN">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBbankModelStoreContainer">
+          <EntitySet Name="TB_ACCOUNT" EntityType="Self.TB_ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_ADMIN" EntityType="Self.TB_ADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_BANK" EntityType="Self.TB_BANK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_BRANCH" EntityType="Self.TB_BRANCH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_CUSTOMER" EntityType="Self.TB_CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_EMPLOYEE" EntityType="Self.TB_EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_LOAN" EntityType="Self.TB_LOAN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TB_ACCOU_OWNS_TB_CUSTO" Association="Self.FK_TB_ACCOU_OWNS_TB_CUSTO">
+            <End Role="TB_CUSTOMER" EntitySet="TB_CUSTOMER" />
+            <End Role="TB_ACCOUNT" EntitySet="TB_ACCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_BRANC_HAS_TB_BANK" Association="Self.FK_TB_BRANC_HAS_TB_BANK">
+            <End Role="TB_BANK" EntitySet="TB_BANK" />
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_CUSTO_DEAL_TB_BRANC" Association="Self.FK_TB_CUSTO_DEAL_TB_BRANC">
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+            <End Role="TB_CUSTOMER" EntitySet="TB_CUSTOMER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_EMP_ENTER_TB_CUST" Association="Self.FK_TB_EMP_ENTER_TB_CUST">
+            <End Role="TB_EMPLOYEE" EntitySet="TB_EMPLOYEE" />
+            <End Role="TB_CUSTOMER" EntitySet="TB_CUSTOMER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_EMPLO_WORKS_FOR_TB_BRANC" Association="Self.FK_TB_EMPLO_WORKS_FOR_TB_BRANC">
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+            <End Role="TB_EMPLOYEE" EntitySet="TB_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_LOAN_AVAILED_B_TB_ACCOU" Association="Self.FK_TB_LOAN_AVAILED_B_TB_ACCOU">
+            <End Role="TB_ACCOUNT" EntitySet="TB_ACCOUNT" />
+            <End Role="TB_LOAN" EntitySet="TB_LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_LOAN_MANAGE_TB_EMPLO" Association="Self.FK_TB_LOAN_MANAGE_TB_EMPLO">
+            <End Role="TB_EMPLOYEE" EntitySet="TB_EMPLOYEE" />
+            <End Role="TB_LOAN" EntitySet="TB_LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_LOAN_OFFER_TB_BRANC" Association="Self.FK_TB_LOAN_OFFER_TB_BRANC">
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+            <End Role="TB_LOAN" EntitySet="TB_LOAN" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBbankModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TB_ACCOUNT">
+          <Key>
+            <PropertyRef Name="ACCOUNT_NUMBER" />
+          </Key>
+          <Property Name="ACCOUNT_NUMBER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="BALANCE" Type="Int32" />
+          <Property Name="TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TB_ADMIN">
+          <Key>
+            <PropertyRef Name="PASS" />
+          </Key>
+          <Property Name="USERNAME" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PASS" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_BANK">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_BRANCH" Relationship="Self.FK_TB_BRANC_HAS_TB_BANK" FromRole="TB_BANK" ToRole="TB_BRANCH" />
+        </EntityType>
+        <EntityType Name="TB_BRANCH">
+          <Key>
+            <PropertyRef Name="BRANCH_NUMBER" />
+          </Key>
+          <Property Name="BRANCH_NUMBER" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="Int32" />
+          <NavigationProperty Name="TB_BANK" Relationship="Self.FK_TB_BRANC_HAS_TB_BANK" FromRole="TB_BRANCH" ToRole="TB_BANK" />
+          <NavigationProperty Name="TB_CUSTOMER" Relationship="Self.FK_TB_CUSTO_DEAL_TB_BRANC" FromRole="TB_BRANCH" ToRole="TB_CUSTOMER" />
+          <NavigationProperty Name="TB_EMPLOYEE" Relationship="Self.FK_TB_EMPLO_WORKS_FOR_TB_BRANC" FromRole="TB_BRANCH" ToRole="TB_EMPLOYEE" />
+          <NavigationProperty Name="TB_LOAN" Relationship="Self.FK_TB_LOAN_OFFER_TB_BRANC" FromRole="TB_BRANCH" ToRole="TB_LOAN" />
+        </EntityType>
+        <EntityType Name="TB_CUSTOMER">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="BRANCH_NUMBER" Type="Int32" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="SSN_EMPLOYEE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TB_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="SSN_EMPLOYEE" />
+          </Key>
+          <Property Name="SSN_EMPLOYEE" Type="Int32" Nullable="false" />
+          <Property Name="BRANCH_NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="POSTION_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="Decimal" Precision="11" Scale="0" />
+          <NavigationProperty Name="TB_CUSTOMER" Relationship="DBbankModel.FK_TB_EMP_ENTER_TB_CUST" FromRole="TB_EMPLOYEE" ToRole="TB_CUSTOMER" />
+        </EntityType>
+        <EntityType Name="TB_LOAN">
+          <Key>
+            <PropertyRef Name="LOAN_NUMBER" />
+          </Key>
+          <Property Name="LOAN_NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="SSN_EMPLOYEE" Type="Int32" />
+          <Property Name="BRANCH_NUMBER" Type="Int32" />
+          <Property Name="ACCOUNT_NUMBER" Type="Int32" />
+          <Property Name="LOAN_AMOUNT" Type="Int32" />
+          <Property Name="LOAN_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LOAN_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_TB_ACCOU_OWNS_TB_CUSTO">
+          <End Role="TB_CUSTOMER" Type="Self.TB_CUSTOMER" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_ACCOUNT" Type="Self.TB_ACCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CUSTOMER">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="TB_ACCOUNT">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_LOAN_AVAILED_B_TB_ACCOU">
+          <End Role="TB_ACCOUNT" Type="Self.TB_ACCOUNT" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_LOAN" Type="Self.TB_LOAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_ACCOUNT">
+              <PropertyRef Name="ACCOUNT_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_LOAN">
+              <PropertyRef Name="ACCOUNT_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_BRANC_HAS_TB_BANK">
+          <End Role="TB_BANK" Type="Self.TB_BANK" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BANK">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="TB_BRANCH">
+              <PropertyRef Name="CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_CUSTO_DEAL_TB_BRANC">
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_CUSTOMER" Type="Self.TB_CUSTOMER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BRANCH">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_CUSTOMER">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_EMPLO_WORKS_FOR_TB_BRANC">
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TB_EMPLOYEE" Type="Self.TB_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BRANCH">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_EMPLOYEE">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_LOAN_OFFER_TB_BRANC">
+          <End Role="TB_BRANCH" Type="Self.TB_BRANCH" Multiplicity="0..1" />
+          <End Role="TB_LOAN" Type="Self.TB_LOAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_BRANCH">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Principal>
+            <Dependent Role="TB_LOAN">
+              <PropertyRef Name="BRANCH_NUMBER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TB_LOAN_MANAGE_TB_EMPLO">
+          <End Role="TB_EMPLOYEE" Type="Self.TB_EMPLOYEE" Multiplicity="0..1" />
+          <End Role="TB_LOAN" Type="Self.TB_LOAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_EMPLOYEE">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Principal>
+            <Dependent Role="TB_LOAN">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBbankEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_ACCOUNT" EntityType="Self.TB_ACCOUNT" />
+          <EntitySet Name="TB_ADMIN" EntityType="Self.TB_ADMIN" />
+          <EntitySet Name="TB_BANK" EntityType="Self.TB_BANK" />
+          <EntitySet Name="TB_BRANCH" EntityType="Self.TB_BRANCH" />
+          <EntitySet Name="TB_CUSTOMER" EntityType="Self.TB_CUSTOMER" />
+          <EntitySet Name="TB_EMPLOYEE" EntityType="Self.TB_EMPLOYEE" />
+          <EntitySet Name="TB_LOAN" EntityType="Self.TB_LOAN" />
+          <AssociationSet Name="FK_TB_ACCOU_OWNS_TB_CUSTO" Association="Self.FK_TB_ACCOU_OWNS_TB_CUSTO">
+            <End Role="TB_CUSTOMER" EntitySet="TB_CUSTOMER" />
+            <End Role="TB_ACCOUNT" EntitySet="TB_ACCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_LOAN_AVAILED_B_TB_ACCOU" Association="Self.FK_TB_LOAN_AVAILED_B_TB_ACCOU">
+            <End Role="TB_ACCOUNT" EntitySet="TB_ACCOUNT" />
+            <End Role="TB_LOAN" EntitySet="TB_LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_BRANC_HAS_TB_BANK" Association="Self.FK_TB_BRANC_HAS_TB_BANK">
+            <End Role="TB_BANK" EntitySet="TB_BANK" />
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_CUSTO_DEAL_TB_BRANC" Association="Self.FK_TB_CUSTO_DEAL_TB_BRANC">
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+            <End Role="TB_CUSTOMER" EntitySet="TB_CUSTOMER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_EMPLO_WORKS_FOR_TB_BRANC" Association="Self.FK_TB_EMPLO_WORKS_FOR_TB_BRANC">
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+            <End Role="TB_EMPLOYEE" EntitySet="TB_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_LOAN_OFFER_TB_BRANC" Association="Self.FK_TB_LOAN_OFFER_TB_BRANC">
+            <End Role="TB_BRANCH" EntitySet="TB_BRANCH" />
+            <End Role="TB_LOAN" EntitySet="TB_LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_LOAN_MANAGE_TB_EMPLO" Association="Self.FK_TB_LOAN_MANAGE_TB_EMPLO">
+            <End Role="TB_EMPLOYEE" EntitySet="TB_EMPLOYEE" />
+            <End Role="TB_LOAN" EntitySet="TB_LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TB_EMP_ENTER_TB_CUST" Association="DBbankModel.FK_TB_EMP_ENTER_TB_CUST">
+            <End Role="TB_EMPLOYEE" EntitySet="TB_EMPLOYEE" />
+            <End Role="TB_CUSTOMER" EntitySet="TB_CUSTOMER" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_TB_EMP_ENTER_TB_CUST">
+          <End Type="DBbankModel.TB_EMPLOYEE" Role="TB_EMPLOYEE" Multiplicity="0..1" />
+          <End Type="DBbankModel.TB_CUSTOMER" Role="TB_CUSTOMER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_EMPLOYEE">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Principal>
+            <Dependent Role="TB_CUSTOMER">
+              <PropertyRef Name="SSN_EMPLOYEE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBbankModelStoreContainer" CdmEntityContainer="DBbankEntities">
+          <EntitySetMapping Name="TB_ACCOUNT">
+            <EntityTypeMapping TypeName="DBbankModel.TB_ACCOUNT">
+              <MappingFragment StoreEntitySet="TB_ACCOUNT">
+                <ScalarProperty Name="ACCOUNT_NUMBER" ColumnName="ACCOUNT_NUMBER" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_ADMIN">
+            <EntityTypeMapping TypeName="DBbankModel.TB_ADMIN">
+              <MappingFragment StoreEntitySet="TB_ADMIN">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASS" ColumnName="PASS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_BANK">
+            <EntityTypeMapping TypeName="DBbankModel.TB_BANK">
+              <MappingFragment StoreEntitySet="TB_BANK">
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_BRANCH">
+            <EntityTypeMapping TypeName="DBbankModel.TB_BRANCH">
+              <MappingFragment StoreEntitySet="TB_BRANCH">
+                <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_CUSTOMER">
+            <EntityTypeMapping TypeName="DBbankModel.TB_CUSTOMER">
+              <MappingFragment StoreEntitySet="TB_CUSTOMER">
+                <ScalarProperty Name="SSN_EMPLOYEE" ColumnName="SSN_EMPLOYEE" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_EMPLOYEE">
+            <EntityTypeMapping TypeName="DBbankModel.TB_EMPLOYEE">
+              <MappingFragment StoreEntitySet="TB_EMPLOYEE">
+                <ScalarProperty Name="SSN_EMPLOYEE" ColumnName="SSN_EMPLOYEE" />
+                <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="POSTION_" ColumnName="POSTION_" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_LOAN">
+            <EntityTypeMapping TypeName="DBbankModel.TB_LOAN">
+              <MappingFragment StoreEntitySet="TB_LOAN">
+                <ScalarProperty Name="LOAN_STATUS" ColumnName="LOAN_STATUS" />
+                <ScalarProperty Name="LOAN_NUMBER" ColumnName="LOAN_NUMBER" />
+                <ScalarProperty Name="SSN_EMPLOYEE" ColumnName="SSN_EMPLOYEE" />
+                <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+                <ScalarProperty Name="ACCOUNT_NUMBER" ColumnName="ACCOUNT_NUMBER" />
+                <ScalarProperty Name="LOAN_AMOUNT" ColumnName="LOAN_AMOUNT" />
+                <ScalarProperty Name="LOAN_TYPE" ColumnName="LOAN_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,37 @@
+E:\Bank system 3\Bank system 3\bin\Debug\Bank system 3.exe.config
+E:\Bank system 3\Bank system 3\bin\Debug\Bank system 3.exe
+E:\Bank system 3\Bank system 3\bin\Debug\Bank system 3.pdb
+E:\Bank system 3\Bank system 3\bin\Debug\EntityFramework.dll
+E:\Bank system 3\Bank system 3\bin\Debug\EntityFramework.SqlServer.dll
+E:\Bank system 3\Bank system 3\bin\Debug\EntityFramework.xml
+E:\Bank system 3\Bank system 3\bin\Debug\EntityFramework.SqlServer.xml
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.csproj.AssemblyReference.cache
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.csproj.SuggestedBindingRedirects.cache
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Customer_Form.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Form1.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Properties.Resources.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.csproj.GenerateResource.cache
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.csproj.CoreCompileInputs.cache
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.csproj.CopyComplete
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.exe
+E:\Bank system 3\Bank system 3\obj\Debug\Bank system 3.pdb
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Update_Customer.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Bank_Form.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Admin.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Bank_Branch.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Admin2.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Account_Customer.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Search_Account.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Loan.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Loan_INFO.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.DBCustomer.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Employee_form.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Loan_Status.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.LIst_Employee.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Execute_DB.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Statment_a.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Statment_B.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Statment_E.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Statment_C.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Statment_D.resources
+E:\Bank system 3\Bank system 3\obj\Debug\Bank_system_3.Statment_F.resources

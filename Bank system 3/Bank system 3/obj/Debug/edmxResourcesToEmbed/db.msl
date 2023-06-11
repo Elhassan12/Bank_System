@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="bankDBModelStoreContainer" CdmEntityContainer="bankDBEntities5">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="bankDBModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Account_Number" ColumnName="Account Number" />
+          <ScalarProperty Name="SSN_customer" ColumnName="SSN customer" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdminDBs">
+      <EntityTypeMapping TypeName="bankDBModel.AdminDB">
+        <MappingFragment StoreEntitySet="AdminDB">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankDBs">
+      <EntityTypeMapping TypeName="bankDBModel.BankDB">
+        <MappingFragment StoreEntitySet="BankDB">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BranchDBs">
+      <EntityTypeMapping TypeName="bankDBModel.BranchDB">
+        <MappingFragment StoreEntitySet="BranchDB">
+          <ScalarProperty Name="Brance_Number" ColumnName="Brance Number" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerDBs">
+      <EntityTypeMapping TypeName="bankDBModel.CustomerDB">
+        <MappingFragment StoreEntitySet="CustomerDB">
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Brance_Number" ColumnName="Brance Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoanDBs">
+      <EntityTypeMapping TypeName="bankDBModel.LoanDB">
+        <MappingFragment StoreEntitySet="LoanDB">
+          <ScalarProperty Name="Loan_Status" ColumnName="Loan Status" />
+          <ScalarProperty Name="SSN_Employee" ColumnName="SSN Employee" />
+          <ScalarProperty Name="Loan_Type" ColumnName="Loan Type" />
+          <ScalarProperty Name="Loan_Amount" ColumnName="Loan Amount" />
+          <ScalarProperty Name="Account_Number" ColumnName="Account Number" />
+          <ScalarProperty Name="Branch_Number" ColumnName="Branch Number" />
+          <ScalarProperty Name="Loan_Number" ColumnName="Loan Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="bankDBModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Branch_Number" ColumnName="Branch Number" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

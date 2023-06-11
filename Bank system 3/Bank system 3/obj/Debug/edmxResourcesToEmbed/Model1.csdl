@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bankDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CustomerDB">
+    <Key>
+      <PropertyRef Name="SSN" />
+    </Key>
+    <Property Name="SSN" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Brance_Number" Type="Int32" />
+    <NavigationProperty Name="BranchDB" Relationship="bankDBModel.FK_BranchDB" FromRole="CustomerDB" ToRole="BranchDB" />
+  </EntityType>
+  <EntityContainer Name="bankDBEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CustomerDBs" EntityType="Self.CustomerDB" />
+    <EntitySet Name="BankDBs" EntityType="bankDBModel.BankDB" />
+    <EntitySet Name="BranchDBs" EntityType="bankDBModel.BranchDB" />
+    <AssociationSet Name="FK_BankDB" Association="bankDBModel.FK_BankDB">
+      <End Role="BankDB" EntitySet="BankDBs" />
+      <End Role="BranchDB" EntitySet="BranchDBs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BranchDB" Association="bankDBModel.FK_BranchDB">
+      <End Role="BranchDB" EntitySet="BranchDBs" />
+      <End Role="CustomerDB" EntitySet="CustomerDBs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BankDB">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BranchDBs" Relationship="bankDBModel.FK_BankDB" FromRole="BankDB" ToRole="BranchDB" />
+  </EntityType>
+  <EntityType Name="BranchDB">
+    <Key>
+      <PropertyRef Name="Brance_Number" />
+    </Key>
+    <Property Name="Brance_Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="Int32" />
+    <NavigationProperty Name="BankDB" Relationship="bankDBModel.FK_BankDB" FromRole="BranchDB" ToRole="BankDB" />
+    <NavigationProperty Name="CustomerDBs" Relationship="bankDBModel.FK_BranchDB" FromRole="BranchDB" ToRole="CustomerDB" />
+  </EntityType>
+  <Association Name="FK_BankDB">
+    <End Type="bankDBModel.BankDB" Role="BankDB" Multiplicity="0..1" />
+    <End Type="bankDBModel.BranchDB" Role="BranchDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BankDB">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="BranchDB">
+        <PropertyRef Name="Code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BranchDB">
+    <End Type="bankDBModel.BranchDB" Role="BranchDB" Multiplicity="0..1" />
+    <End Type="bankDBModel.CustomerDB" Role="CustomerDB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BranchDB">
+        <PropertyRef Name="Brance_Number" />
+      </Principal>
+      <Dependent Role="CustomerDB">
+        <PropertyRef Name="Brance_Number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

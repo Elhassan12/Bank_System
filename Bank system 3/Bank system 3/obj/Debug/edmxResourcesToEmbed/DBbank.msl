@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBbankModelStoreContainer" CdmEntityContainer="DBbankEntities">
+    <EntitySetMapping Name="TB_ACCOUNT">
+      <EntityTypeMapping TypeName="DBbankModel.TB_ACCOUNT">
+        <MappingFragment StoreEntitySet="TB_ACCOUNT">
+          <ScalarProperty Name="ACCOUNT_NUMBER" ColumnName="ACCOUNT_NUMBER" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+          <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_ADMIN">
+      <EntityTypeMapping TypeName="DBbankModel.TB_ADMIN">
+        <MappingFragment StoreEntitySet="TB_ADMIN">
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="PASS" ColumnName="PASS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_BANK">
+      <EntityTypeMapping TypeName="DBbankModel.TB_BANK">
+        <MappingFragment StoreEntitySet="TB_BANK">
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_BRANCH">
+      <EntityTypeMapping TypeName="DBbankModel.TB_BRANCH">
+        <MappingFragment StoreEntitySet="TB_BRANCH">
+          <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_CUSTOMER">
+      <EntityTypeMapping TypeName="DBbankModel.TB_CUSTOMER">
+        <MappingFragment StoreEntitySet="TB_CUSTOMER">
+          <ScalarProperty Name="SSN_EMPLOYEE" ColumnName="SSN_EMPLOYEE" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_EMPLOYEE">
+      <EntityTypeMapping TypeName="DBbankModel.TB_EMPLOYEE">
+        <MappingFragment StoreEntitySet="TB_EMPLOYEE">
+          <ScalarProperty Name="SSN_EMPLOYEE" ColumnName="SSN_EMPLOYEE" />
+          <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="POSTION_" ColumnName="POSTION_" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TB_LOAN">
+      <EntityTypeMapping TypeName="DBbankModel.TB_LOAN">
+        <MappingFragment StoreEntitySet="TB_LOAN">
+          <ScalarProperty Name="LOAN_STATUS" ColumnName="LOAN_STATUS" />
+          <ScalarProperty Name="LOAN_NUMBER" ColumnName="LOAN_NUMBER" />
+          <ScalarProperty Name="SSN_EMPLOYEE" ColumnName="SSN_EMPLOYEE" />
+          <ScalarProperty Name="BRANCH_NUMBER" ColumnName="BRANCH_NUMBER" />
+          <ScalarProperty Name="ACCOUNT_NUMBER" ColumnName="ACCOUNT_NUMBER" />
+          <ScalarProperty Name="LOAN_AMOUNT" ColumnName="LOAN_AMOUNT" />
+          <ScalarProperty Name="LOAN_TYPE" ColumnName="LOAN_TYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="bankDBModelStoreContainer" CdmEntityContainer="bankDBEntities4">
+    <EntitySetMapping Name="AdminDBs">
+      <EntityTypeMapping TypeName="bankDBModel.AdminDB">
+        <MappingFragment StoreEntitySet="AdminDB">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BankDBs">
+      <EntityTypeMapping TypeName="bankDBModel.BankDB">
+        <MappingFragment StoreEntitySet="BankDB">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BranchDBs">
+      <EntityTypeMapping TypeName="bankDBModel.BranchDB">
+        <MappingFragment StoreEntitySet="BranchDB">
+          <ScalarProperty Name="Brance_Number" ColumnName="Brance Number" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerDBs">
+      <EntityTypeMapping TypeName="bankDBModel.CustomerDB">
+        <MappingFragment StoreEntitySet="CustomerDB">
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Brance_Number" ColumnName="Brance Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
